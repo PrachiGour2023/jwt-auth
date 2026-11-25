@@ -42,6 +42,22 @@ export const apiInstance = axios.create({
     headers: { 'Content-Type': 'application/json' },
 });
 
+const onServerError = (error: unknown) => {
+    if (axios.isAxiosError(error)) {
+        if (error.response) {
+            const message = error?.response?.data?.message || `Request failed with status ${error?.response?.status}`
+            throw new Error(message)
+        }
+
+        if (error.request) {
+            throw new Error('Network error. Please check your internet connection.');
+        }
+    }
+    throw new Error(
+        error instanceof Error ? error.message : 'An unexpected error occurred.'
+    );
+}
+
 /* --------------------------- single-flight refresh ------------------------- */
 
 // One refresh at a time. Concurrent callers (StrictMode double effect,
@@ -86,6 +102,7 @@ apiInstance.interceptors.request.use((config) => {
 apiInstance.interceptors.response.use(
     (response) => response,
     async (error: AxiosError) => {
+        onServerError(error)
         const originalRequest = error.config as RetryableConfig | undefined;
 
         // Network error / cancelled request: no response or config to work with.

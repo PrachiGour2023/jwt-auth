@@ -1,5 +1,4 @@
-import { apiInstance, BASEURL, setAccessToken, refreshAccessToken } from './apiInstance';
-import axios from 'axios';
+import { apiInstance, setAccessToken, refreshAccessToken } from './apiInstance';
 
 export interface LoginCredentials {
     username: string;
@@ -40,7 +39,7 @@ export const authServices = {
         const response = await apiInstance.post('/users/register', credentials);
         return response.data;
     },
-     refreshToken: async (): Promise<{ accessToken: string }> => {
+    refreshToken: async (): Promise<{ accessToken: string }> => {
         const accessToken = await refreshAccessToken();
         return { accessToken };
     },
@@ -52,7 +51,6 @@ export const authServices = {
         try {
             await apiInstance.post('/users/logout');
         } finally {
-            // Always clear local state, even if the server call fails.
             setAccessToken(null);
         }
     }

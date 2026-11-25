@@ -7,8 +7,6 @@ import { FullPageSpinner } from '.';
 const ProtectedRoutes: React.FC = () => {
     const { isAuthenticated, isInitializing } = useAuth();
     const location = useLocation();
-    console.log(isAuthenticated, isInitializing);
-    
 
     // Wait for the session check; redirecting now would bounce a logged-in
     // user to /login on every page refresh.
