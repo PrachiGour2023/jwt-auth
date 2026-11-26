@@ -11,12 +11,16 @@ export interface UserProfileState {
 export interface ProfileResponse {
     data?: UserProfileState & {
         coverImage?: { url?: string },
-        account?: { avatar?: { url?: string } },
+        account?: { 
+            avatar?: { url?: string } ,
+            username?: string;
+        },
         bio: string,
         dob: string,
         countryCode: string,
         firstName: string,
         lastName: string,
-        phoneNumber: string
+        phoneNumber: string;
+        
     }
 }
