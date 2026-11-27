@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react'
 import InputField from '../../auth/component/InputField'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { userServices } from '../../../services/userServices'
-import { useNavigate } from 'react-router'
+import { useNavigate, Link } from 'react-router'
 import type { ProfileResponse, UserProfileState } from './type'
+import { ArrowLeft } from 'lucide-react';
 
 const UpdateProfile = () => {
 
     const navigate = useNavigate();
     const queryClient = useQueryClient();
-    
+
     const [input, setInput] = useState<UserProfileState>({
         lastName: '',
         firstName: '',
@@ -26,7 +27,7 @@ const UpdateProfile = () => {
 
     useEffect(() => {
         if (profileData?.data) {
-            const date = new Date(profileData?.data?.dob).toISOString().split("T")[0] 
+            const date = new Date(profileData?.data?.dob).toISOString().split("T")[0]
             setInput({
                 firstName: profileData?.data?.firstName,
                 lastName: profileData?.data?.lastName,
@@ -53,7 +54,7 @@ const UpdateProfile = () => {
         mutationFn: (formData) => userServices.updateCoverImage(formData),
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: ['profile'] });
-            // navigate('/dashboard')
+            navigate('/dashboard')
         }
     })
 
@@ -61,7 +62,7 @@ const UpdateProfile = () => {
         mutationFn: (formData) => userServices.updateAvatar(formData),
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: ['profile'] });
-            // navigate('/dashboard')
+            navigate('/dashboard')
         }
     })
 
@@ -102,17 +103,17 @@ const UpdateProfile = () => {
             <form onSubmit={updateProfile} className="mx-auto max-w-2xl overflow-hidden rounded-2xl border border-blue-200 bg-white shadow-sm">
 
                 {/* Card Header */}
-                <div className="flex items-center justify-between border-b border-gray-100 px-6 py-4">
+                <div className="flex items-center gap-3 border-b border-gray-100 px-6 py-4">
+                    <Link
+                        to="/"
+                        className="flex h-9 w-9 items-center justify-center rounded-full text-gray-600 transition hover:bg-blue-50 hover:text-blue-900"
+                    >
+                        <ArrowLeft size={20} />
+                    </Link>
                     <div>
                         <h2 className="text-lg font-bold text-gray-900">Update Profile</h2>
                         <p className="text-xs text-gray-500">Manage your personal details and profile appearance</p>
                     </div>
-                    <button
-                        type="button"
-                        className="rounded-lg px-2.5 py-1 text-sm font-medium text-gray-500 transition hover:bg-gray-100 hover:text-gray-800"
-                    >
-                        ✕
-                    </button>
                 </div>
 
                 {/* Cover Image & Avatar Preview Section */}

@@ -25,5 +25,9 @@ export const userServices = {
             }
         })
         return response?.data
+    },
+    getUserProfile: async (username: string) => {
+        const response = await apiInstance.get(`social-media/profile/u/${username}`)
+        return response?.data
     }
 }

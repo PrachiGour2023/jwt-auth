@@ -3,6 +3,8 @@ import { postServices } from '../../../services/postServices';
 import { useState } from 'react';
 import type { ProfileResponse } from '../../dashboard/pages/type';
 import { useNavigate } from 'react-router';
+import { ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router';
 
 const CreatePost = () => {
 
@@ -38,7 +40,7 @@ const CreatePost = () => {
 
         const formData = new FormData();
         formData.append("content", content);
-        formData.append("images", images[0]);
+        images.forEach((image) => formData.append("images", image))
         mutate(formData)
     }
 
@@ -47,8 +49,17 @@ const CreatePost = () => {
             <div className="mx-auto max-w-2xl overflow-hidden rounded-2xl border border-blue-200 bg-white shadow-sm">
 
                 {/* Card Header */}
-                <div className="flex items-center justify-between border-b border-gray-100 px-6 py-4">
-                    <h2 className="text-lg font-bold text-gray-900">Create Post</h2>
+                <div className="flex items-center border-b border-gray-100 gap-3 px-6 py-4">
+                    <Link
+                        to="/"
+                        className="flex h-9 w-9 items-center justify-center rounded-full text-gray-600 transition hover:bg-blue-50 hover:text-blue-900"
+                    >
+                        <ArrowLeft size={20} />
+                    </Link>
+                    <div>
+                        <h2 className="text-lg font-bold text-gray-900">Create Post</h2>
+                        <p className="text-xs text-gray-500">Share with us what you have in your mind</p>
+                    </div>
                 </div>
 
                 <div className="space-y-5 p-6">
