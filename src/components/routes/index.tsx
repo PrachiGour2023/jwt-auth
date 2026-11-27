@@ -9,6 +9,7 @@ import { Navigate } from "react-router";
 import EmailVerification from "../../features/auth/pages/EmailVerification";
 import CreatePost from "../../features/post/pages/CreatePost";
 import UpdateProfile from "../../features/dashboard/pages/UpdateProfile";
+import BookmarkPost from "../../features/post/pages/BookmarkPost";
 
 export const FullPageSpinner: React.FC<{ label?: string }> = ({ label = 'Loading...' }) => (
     <div
@@ -37,7 +38,8 @@ const router = createBrowserRouter([
         children: [
             {path: 'dashboard', element: <OverviewTab />},
             {path: 'create-post', element: <CreatePost />},
-            {path: 'update-user-profile', element: <UpdateProfile />}
+            {path: 'update-user-profile', element: <UpdateProfile />},
+            {path: 'bookmarks', element: <BookmarkPost />}
         ]
     },
     { path: '*', element: <Navigate to="/" replace /> },
