@@ -25,7 +25,12 @@ const InputField: React.FC<InputFieldProps> = ({
         <div>
             {type !== "checkbox" ? (
                 <>
-                    <div className={`${error ? 'border-red-400' : 'border-gray-400'} border-1 rounded-sm w-full overflow-hidden`}>
+                    <div
+                        className={`w-full rounded-xl border bg-gray-50/50 transition overflow-hidden focus-within:bg-white focus-within:ring-2 ${error
+                            ? 'border-red-400 focus-within:border-red-500 focus-within:ring-red-100'
+                            : 'border-gray-200 focus-within:border-blue-400 focus-within:ring-blue-100'
+                            }`}
+                    >
                         <input
                             name={name}
                             type={type}
@@ -33,7 +38,7 @@ const InputField: React.FC<InputFieldProps> = ({
                             placeholder={placeholder}
                             onChange={handleChange}
                             onBlur={onBlur}
-                            className={`w-full p-1.5 outline-0 text-sm ${className || ''}`}
+                            className={`w-full bg-transparent px-4 py-2.5 text-sm text-gray-800 outline-none ${className || ''}`}
                         />
                     </div>
                     {error && <span className='text-red-500 text-xs'>{error}</span>}
